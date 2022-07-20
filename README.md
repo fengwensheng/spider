@@ -11,13 +11,13 @@
 
 其中`dart create`用以创建项目，使用`dart help create`查看其使用帮助，及所有可用参数。`-t`表示指定项目类型，这里要创建命令行工具应用，则使用`console`参数值。
 
-故，有Dart后端项目创建命令，如下。
+故，有Dart后端项目创建命令，如下：
 
 ```shell
 dart create dart_spider -t console
 ```
 
-生成项目的目录结构，如下。
+生成的项目目录结构，如下：
 
 ```markdown
 dart_spider
@@ -34,3 +34,24 @@ dart_spider
     └── dart_spider_test.dart
 ```
 
+运行项目：
+
+```shell
+dart bin/dart_spider.dart
+```
+
+## 添加Dart项目依赖
+
+在pubspec.yaml文件中添加Dart项目远程库依赖。在vs code中保存文件自动拉取依赖，或在Dart项目根目录路径下使用`dart pub get`命令。
+
+1. http。用作网络请求库。
+2. html。用以解析http语法。
+
+## 爬虫类设计
+
+所谓爬虫，是用代码自动化访问网页。关键在于模拟用户访问行为，欺骗浏览器。主要有2个入参。
+
+1. user-agent。伪造用户身份。整个应用内不变，设为成员变量。
+2. url。所要访问的目标网页地址，设为类的实例方法入参。
+
+将入参作为json格式配置文件，与源代码分隔开，通过Dart SDK读取文件，再decode为`Map<String, String>`格式的json表示。
