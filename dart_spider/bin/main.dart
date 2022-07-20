@@ -5,7 +5,7 @@ import 'package:dart_spider/dart_spider.dart';
 
 void main() => doSpider();
 
-void doSpider() async {
+void doSpider() {
   //read config file
   final Map<String, dynamic> reqOptions = jsonDecode(
     File('request_options.json').readAsStringSync(),
@@ -14,6 +14,7 @@ void doSpider() async {
   final baseUrl = reqOptions['baseUrl'];
   //do spider
   final dartSpider = DartSpider(reqHeader: reqHeader);
-  final res = await dartSpider.getData(url: baseUrl);
-  print(res);
+  final res = dartSpider.doSpider(
+    url: baseUrl,
+  );
 }
