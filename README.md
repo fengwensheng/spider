@@ -55,3 +55,13 @@ dart bin/dart_spider.dart
 2. url。所要访问的目标网页地址，设为类的实例方法入参。
 
 将入参作为json格式配置文件，与源代码分隔开，通过Dart SDK读取文件，再decode为`Map<String, String>`格式的json表示。
+
+## 爬虫实现原理
+
+1. 发起Http请求，获取Response响应数据。
+2. 解析Html语法，主要通过CSS选择器或正则。
+
+## 具体实现注意点
+
+1. Html解析时部分元素可能为空，要判空。
+2. 构造爬虫数据实体类，进行数据封装。
