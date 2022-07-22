@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dart_spider/db.dart';
 import 'package:dart_spider/spider_model.dart';
 import 'package:html/dom.dart';
 import 'package:http/http.dart';
@@ -58,12 +59,32 @@ class DartSpider {
     return spiderData;
   }
 
+  Iterable<String> _genPageUrl({
+    required String baseUrl,
+    required int page,
+  }) sync* {
+    for (int i = 1; i <= page; i++) {
+      yield i == 1 ? baseUrl : '$baseUrl/page/$i';
+    }
+  }
+
+  void _savaData(List<SpiderModel> data) {
+    print(data.length);
+    final db = Sqlite3Db();
+    db.saveData(data);
+  }
+
   void doSpider({
     required String url,
+    required int page,
   }) async {
-    final a = _parseHtmlStr(
-      htmlStr: await _getData(url: url),
-    );
-    print(a[0]);
+    List<SpiderModel> data = [];
+    for (var pageUrl in _genPageUrl(baseUrl: url, page: page)) {
+      final pageItemData = _parseHtmlStr(
+        htmlStr: await _getData(url: pageUrl),
+      );
+      data += pageItemData;
+    }
+    _savaData(data);
   }
 }

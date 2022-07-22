@@ -16,5 +16,6 @@ void doSpider() {
   final dartSpider = DartSpider(reqHeader: reqHeader);
   final res = dartSpider.doSpider(
     url: baseUrl,
+    page: 2,
   );
 }
